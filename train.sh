@@ -23,6 +23,9 @@ fi
 # Generate .dic file
 perl $RU4SPHINX/text2dict/dict2transcript.pl $DIC $ADAPTED_MODEL/$DIC.dic
 
+# Convert mdef to text
+pocketsphinx_mdef_convert -text $ACOUSTIC_MODEL/mdef $ACOUSTIC_MODEL/mdef.txt
+
 # Generate acoustic model features from our .wav files
 # we must set feat.params file of our acoustic model and .fileids file with list of .wav files
 sphinx_fe \
@@ -79,4 +82,6 @@ $SPHINXTRAIN/mk_s2sendump \
     -moddeffn $ADAPTED_MODEL/acoustic/mdef.txt \
     -mixwfn $ADAPTED_MODEL/acoustic/mixture_weights \
     -sendumpfn $ADAPTED_MODEL/sendump
+
+rm $ADAPTED_MODEL/acoustic/mdef.txt
 
