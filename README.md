@@ -71,4 +71,4 @@ my_dictionary
 [1]: http://sourceforge.net/projects/cmusphinx/files/sphinxtrain/1.0.8/   "sphinxtrain"
 [2]: https://github.com/zamiron/ru4sphinx "ru4sphinx"
 [3]: http://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/Russian%20Audiobook%20Morphology%20Zero/ "language model"
-[4]: http://cmusphinx.sourceforge.net/sphinx4/javadoc/edu/cmu/sphinx/jsgf/JSGFGrammar.html "JSFG"
+[4]: http://www.w3.org/TR/jsgf/ "JSFG"
