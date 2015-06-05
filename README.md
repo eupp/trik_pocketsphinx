@@ -86,7 +86,7 @@ public <word> = <cmd>;
 Использование адаптированной модели
 ------------------------------------
 
-	pocketsphinx_continuous -hmm acoustic/ -fsg grammar.fsg -dict dictionary.dic
+	pocketsphinx_continuous -hmm model/ -fsg examples/grammar.fsg -dict examples/simple.dic
 
 Русская модель
 ----------------
