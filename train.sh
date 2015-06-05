@@ -4,24 +4,17 @@
 ACOUSTIC_MODEL=$1
 # path to directory for output
 ADAPTED_MODEL=$2
-# path to ru4sphinx repo
-RU4SPHINX=$3
-# path to the dictionary file
-DIC=$4
 # path to the text file with list of .wav files which will be used during the adaptation
-FILEIDS=$5
+FILEIDS=$3
 # path to the file with trancriptions of .wav files
-TRANSC=$6
+TRANSC=$4
 # path to sphinxtrain utils (/usr/local/libexec/sphinxtrain by default)
-SPHINXTRAIN=$7
+SPHINXTRAIN=$5
 
 if [ ! $SPHINXTRAIN ]
 then
 	SPHINXTRAIN=/usr/local/libexec/sphinxtrain
 fi
-
-# Generate .dic file
-perl $RU4SPHINX/text2dict/dict2transcript.pl $DIC $ADAPTED_MODEL/$DIC.dic
 
 # Convert mdef to text
 pocketsphinx_mdef_convert -text $ACOUSTIC_MODEL/mdef $ACOUSTIC_MODEL/mdef.txt

@@ -9,7 +9,47 @@ trik_pocketsphinx
 
 * [sphinxtrain] [1]
 * [ru4sphinx] [2]  - утилиты для создания русского словаря
-* [русская языковая модель] [3] 
+
+Создание словаря
+-------------------------
+
+Создаём файл, содержащий все слова, которые pocketsphinx должен будет распознавать:
+
+my_dictionary
+
+	стоп
+	вперёд
+	назад
+
+Запускаем скрипт dict.sh.
+Параметры: <br />
+1. Путь к ru4sphinx <br />
+2. Путь к файлу со словами <br />
+3. Имя выходного файла <br />
+
+На выходе получаем файл-словарь, готовый для использования в pocketsphinx
+
+Создание грамматики
+-------------------------
+
+Также нужно определить грамматику языка. Используем [JSGF] [3] формат. Пример:
+
+```
+#JSGF V1.0;
+
+grammar example;
+
+public <word> = <cmd>;
+
+<cmd> =   вперёд
+        | стоп
+        | назад
+        ;
+```
+
+Затем конвертируем грамматику в формат pocketsphinx: 
+
+	sphinx_jsgf2fsg -jsgf grammar.jsgf -fsg grammar.fsg
 
 Адаптирование языковой модели
 -------------------------
@@ -34,41 +74,27 @@ trik_pocketsphinx
 	<s> назад </s> (back)
 	<s> вперёд </s> (forward)
 
-Кроме того, нужно создать файл-словарь, содержащий все слова, которые pocketsphinx должен будет распознавать:
-
-my_dictionary
-
-	стоп
-	вперёд
-	назад
-
-Также нужно определить грамматику языка. Используем [JSGF] [4] формат. Затем конвертируем грамматику в формат pocketsphinx: 
-
-	sphinx_jsgf2fsg -jsgf grammar.jsgf -fsg grammar.fsg
-
 Запускаем скрипт *train.sh*. Ему требуется 7 параметров (порядок важен): <br />
 1. Путь к акустической модели (папка zero\_ru.cd\_cont\_4000 из скачанной русской модели) <br />
 2. Папка, куда будет сохранён результат работы (адаптированная модель и словарь) <br />
-3. Путь к ru4sphinx <br />
-4. Путь к словарю <br />
-5. Путь к файлу .fileids <br />
-6. Путь к файлу .transcription <br />
-7. Путь к sphinxtrain (по умолчанию /usr/local/libexec/sphinxtrain) <br />
+3. Путь к файлу .fileids <br />
+4. Путь к файлу .transcription <br />
+5. Путь к sphinxtrain (по умолчанию /usr/local/libexec/sphinxtrain) <br />
 
-Результат работы скрипта папка acoustic с акустической моделью и файл словаря с расширением .dic .
+Результат работы скрипта папка acoustic с акустической моделью.
 
 Использование адаптированной модели
 ------------------------------------
 
 	pocketsphinx_continuous -hmm acoustic/ -fsg grammar.fsg -dict dictionary.dic
 
-Тестовая модель
+Русская модель
 ----------------
 
-В папке model находится тестовая модель с тремя командами: "вперёд", "назад", "стоп".
+В папке model находится русская языковая модель zero_ru.cd_ptm_4000 [4]
 
 
 [1]: http://sourceforge.net/projects/cmusphinx/files/sphinxtrain/1.0.8/   "sphinxtrain"
 [2]: https://github.com/zamiron/ru4sphinx "ru4sphinx"
-[3]: http://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/Russian%20Audiobook%20Morphology%20Zero/ "language model"
-[4]: http://www.w3.org/TR/jsgf/ "JSFG"
+[3]: http://www.w3.org/TR/jsgf/ "JSFG"
+[4]: http://sourceforge.net/projects/cmusphinx/files/Acoustic%20and%20Language%20Models/Russian/

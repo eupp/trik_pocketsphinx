@@ -1,0 +1,10 @@
+#JSGF V1.0;
+
+grammar example;
+
+public <word> = <cmd>;
+
+<cmd> =   вперёд
+        | стоп
+        | назад
+        ;
